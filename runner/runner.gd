@@ -3,7 +3,7 @@ class_name Runner
 
 signal avg_wait_changed(runner_name: String, avg_wait: float)
 
-const new_request_period := 20
+var new_request_period := 20
 
 var name: String
 

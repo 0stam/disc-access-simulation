@@ -1,8 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://b88nmrpriumu0"]
 
+[ext_resource type="Theme" uid="uid://cgwcth3onwm6v" path="res://ui/base_theme.tres" id="1_05h0d"]
 [ext_resource type="Script" path="res://main/main.gd" id="1_wqd3h"]
-[ext_resource type="PackedScene" uid="uid://xam0w87tx1ui" path="res://disk/disk.tscn" id="2_ndqlc"]
-[ext_resource type="PackedScene" uid="uid://dmo3ie7mn5t6e" path="res://ui/result_display.tscn" id="3_01fnb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqyoe"]
+font_size = 51
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,7 +13,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_05h0d")
 script = ExtResource("1_wqd3h")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.156863, 0.156863, 1)
 
 [node name="Disks" type="GridContainer" parent="."]
 layout_mode = 1
@@ -23,22 +35,6 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="Disk" parent="Disks" instance=ExtResource("2_ndqlc")]
-layout_mode = 2
-pointer_speed = 1000.0
-
-[node name="Disk2" parent="Disks" instance=ExtResource("2_ndqlc")]
-layout_mode = 2
-pointer_speed = 1000.0
-
-[node name="Disk3" parent="Disks" instance=ExtResource("2_ndqlc")]
-layout_mode = 2
-pointer_speed = 1000.0
-
-[node name="Disk4" parent="Disks" instance=ExtResource("2_ndqlc")]
-layout_mode = 2
-pointer_speed = 1000.0
-
 [node name="UI" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 11
@@ -49,5 +45,160 @@ offset_left = -420.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ResultDisplay" parent="UI" instance=ExtResource("3_01fnb")]
+[node name="Filler" type="Label" parent="UI"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Head speed: "
+
+[node name="SpinBox" type="SpinBox" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 50.0
+max_value = 100000.0
+step = 50.0
+value = 200.0
+allow_greater = true
+alignment = 2
+
+[node name="Abort" type="Button" parent="UI"]
+visible = false
+layout_mode = 2
+text = "ABORT"
+
+[node name="ConfigPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -299.5
+offset_right = 500.0
+offset_bottom = 299.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" type="VBoxContainer" parent="ConfigPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_right = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "Simulation parameters"
+label_settings = SubResource("LabelSettings_lqyoe")
+horizontal_alignment = 1
+
+[node name="FCFS" type="CheckBox" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "FCFS"
+icon_alignment = 1
+expand_icon = true
+
+[node name="SSTF" type="CheckBox" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "SSTF"
+icon_alignment = 1
+expand_icon = true
+
+[node name="SCAN" type="CheckBox" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "SCAN"
+icon_alignment = 1
+expand_icon = true
+
+[node name="CSCAN" type="CheckBox" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "CSCAN"
+icon_alignment = 1
+expand_icon = true
+
+[node name="HSeparator" type="HSeparator" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="RTProcesses" type="CheckBox" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "Real time processes"
+icon_alignment = 1
+expand_icon = true
+
+[node name="HSeparator2" type="HSeparator" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="ProcessCount" type="HBoxContainer" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfigPanel/Settings/ProcessCount"]
+layout_mode = 2
+text = "Process count: "
+
+[node name="ProcessCount" type="SpinBox" parent="ConfigPanel/Settings/ProcessCount"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 100.0
+max_value = 10000.0
+step = 10.0
+value = 1000.0
+allow_greater = true
+alignment = 2
+
+[node name="SpawnPeriod" type="HBoxContainer" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfigPanel/Settings/SpawnPeriod"]
+layout_mode = 2
+text = "Spawn period: "
+
+[node name="SpawnPeriod" type="SpinBox" parent="ConfigPanel/Settings/SpawnPeriod"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+min_value = 1.0
+value = 20.0
+allow_greater = true
+alignment = 2
+
+[node name="RealTimeProbability" type="HBoxContainer" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfigPanel/Settings/RealTimeProbability"]
+layout_mode = 2
+text = "RT probability: "
+
+[node name="RTProbability" type="SpinBox" parent="ConfigPanel/Settings/RealTimeProbability"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 5.0
+step = 5.0
+value = 5.0
+allow_greater = true
+alignment = 2
+suffix = "%"
+
+[node name="HSeparator3" type="HSeparator" parent="ConfigPanel/Settings"]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="ConfigPanel/Settings"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="value_changed" from="UI/VBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="pressed" from="UI/Abort" to="." method="_on_abort_pressed"]
+[connection signal="value_changed" from="ConfigPanel/Settings/ProcessCount/ProcessCount" to="." method="_on_process_count_value_changed"]
+[connection signal="value_changed" from="ConfigPanel/Settings/SpawnPeriod/SpawnPeriod" to="." method="_on_spawn_period_value_changed"]
+[connection signal="value_changed" from="ConfigPanel/Settings/RealTimeProbability/RTProbability" to="." method="_on_rt_probability_value_changed"]
+[connection signal="pressed" from="ConfigPanel/Settings/Start" to="." method="_on_start_pressed"]

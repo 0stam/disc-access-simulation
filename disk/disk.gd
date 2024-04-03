@@ -1,4 +1,4 @@
-extends AspectRatioContainer
+extends Control
 class_name Disk
 
 signal move_finished
@@ -10,6 +10,13 @@ var pointer_pos: float
 
 @onready var disk_circle: DiskCircle = $DiskCircle
 @onready var pointer: TextureRect = $Pointer
+
+
+func _ready() -> void:
+	set_process(false)
+	await get_tree().process_frame
+	if not is_processing():
+		teleport(0)
 
 
 func teleport(pos: int) -> void:
@@ -45,7 +52,6 @@ func set_requests(requests: Array[Request], current_request: int) -> void:
 func _process(delta: float) -> void:
 	var velocity: float = pointer_speed * delta
 	
-	
 	if pointer_destination - pointer_pos < 0:
 		velocity *= -1
 	
@@ -58,9 +64,3 @@ func _process(delta: float) -> void:
 	if round(abs(pointer_pos - pointer_destination) * 100) / 100.0 < 1:
 		set_process(false)
 		move_finished.emit()
-
-
-func _ready() -> void:
-	await get_tree().process_frame
-	if not is_processing():
-		teleport(0)
