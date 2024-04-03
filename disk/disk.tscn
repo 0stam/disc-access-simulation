@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://xam0w87tx1ui"]
+
+[ext_resource type="PackedScene" uid="uid://dcwx61oih65e1" path="res://disk_circle/disk_circle.tscn" id="1_d43p2"]
+[ext_resource type="Script" path="res://disk/disk.gd" id="1_v1eqr"]
+[ext_resource type="Texture2D" uid="uid://b7jtbwysfnfdh" path="res://disk/circle.png" id="2_vg27n"]
+
+[node name="Disk" type="AspectRatioContainer"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 238.0
+offset_bottom = 238.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_v1eqr")
+
+[node name="DiskCircle" parent="." instance=ExtResource("1_d43p2")]
+layout_mode = 2
+
+[node name="Pointer" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_vg27n")
+expand_mode = 1

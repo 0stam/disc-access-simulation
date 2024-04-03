@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://b88nmrpriumu0"]
+
+[ext_resource type="Script" path="res://main/main.gd" id="1_wqd3h"]
+[ext_resource type="PackedScene" uid="uid://xam0w87tx1ui" path="res://disk/disk.tscn" id="2_ndqlc"]
+[ext_resource type="PackedScene" uid="uid://dmo3ie7mn5t6e" path="res://ui/result_display.tscn" id="3_01fnb"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqd3h")
+
+[node name="Disks" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Disk" parent="Disks" instance=ExtResource("2_ndqlc")]
+layout_mode = 2
+pointer_speed = 1000.0
+
+[node name="Disk2" parent="Disks" instance=ExtResource("2_ndqlc")]
+layout_mode = 2
+pointer_speed = 1000.0
+
+[node name="Disk3" parent="Disks" instance=ExtResource("2_ndqlc")]
+layout_mode = 2
+pointer_speed = 1000.0
+
+[node name="Disk4" parent="Disks" instance=ExtResource("2_ndqlc")]
+layout_mode = 2
+pointer_speed = 1000.0
+
+[node name="UI" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -420.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ResultDisplay" parent="UI" instance=ExtResource("3_01fnb")]
+layout_mode = 2

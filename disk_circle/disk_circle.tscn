@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcwx61oih65e1"]
+
+[ext_resource type="Shader" uid="uid://de8vs5qc84xe3" path="res://disk_circle/shader.tres" id="1_g7jkg"]
+[ext_resource type="Texture2D" uid="uid://banmk8kv7ni2r" path="res://disk_circle/demo_texture.png" id="2_huscc"]
+[ext_resource type="Script" path="res://disk_circle/disk_circle.gd" id="3_tt5na"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4oh0v"]
+shader = ExtResource("1_g7jkg")
+shader_parameter/values = ExtResource("2_huscc")
+
+[node name="DiskCircle" type="ColorRect"]
+material = SubResource("ShaderMaterial_4oh0v")
+custom_minimum_size = Vector2(50, 50)
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_tt5na")
