@@ -170,6 +170,7 @@ min_value = 1.0
 value = 20.0
 allow_greater = true
 alignment = 2
+custom_arrow_step = 5.0
 
 [node name="RealTimeProbability" type="HBoxContainer" parent="ConfigPanel/Settings"]
 layout_mode = 2

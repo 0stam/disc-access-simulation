@@ -1,19 +1,28 @@
 extends Control
 
+# Process generation
 var real_time_allowed: bool = false
-var pointer_speed: int = 200
 var process_count: int = 1000
 var rt_probability: int = 5
+
+# Runner configuration
 var spawn_period: int = 20
 
+# Disk configuration
+var pointer_speed: int = 200
+
+# List of runners to spawn
 var runner_config: Array[Array] = []
 
+# Current runners and disks
 var runners: Array[Runner] = []
 var disks: Array[Disk] = []
 
+# Packed scenes
 var disk_scene: PackedScene = preload("res://disk/disk.tscn")
 var result_display_scene = preload("res://ui/result_display.tscn")
 
+# Node references
 @onready var disks_grid := $Disks
 @onready var ui := $UI
 @onready var config_panel := $ConfigPanel
@@ -21,13 +30,9 @@ var result_display_scene = preload("res://ui/result_display.tscn")
 @onready var abort_button := $UI/Abort
 
 
-func _ready() -> void:
-	return
-	prepare_simulation()
-	start_runners()
-
-
+## Resets the scene to the initial state
 func reset():
+	# Resetting nodes
 	for child in ui.get_children():
 		if child is ResultDisplay:
 			ui.remove_child(child)
@@ -37,11 +42,13 @@ func reset():
 	
 	abort_button.hide()
 	
+	# Resetting variables
 	runners = []
 	disks = []
 
 
 func prepare_simulation():
+	# Generate request parameters
 	var positions: Array[int] = []
 	var delays: Array[int] = []
 	
@@ -57,12 +64,14 @@ func prepare_simulation():
 	disks_grid.columns = clamp(len(runner_config), 1, 2)
 	abort_button.show()
 	
+	# Create runners
 	for config in runner_config:
 		var requests: Array[Request] = create_requests(positions, delays)
 		
 		create_runner(config[0], config[1], requests)
 
 
+## Returns Array of Requests based on Arrays of positions and delays
 func create_requests(positions: Array[int], delays: Array[int]) -> Array[Request]:
 	assert(len(positions) == len(delays), "Mismatching array lengths for postions and real time")
 	
@@ -74,6 +83,7 @@ func create_requests(positions: Array[int], delays: Array[int]) -> Array[Request
 	return requests
 
 
+## Creates Runner with associated Disk and ResultDisplay
 func create_runner(name: String, strategy: Strategy, requests: Array[Request]) -> void:
 	var disk: Disk = disk_scene.instantiate()
 	disk.pointer_speed = pointer_speed
@@ -97,6 +107,7 @@ func create_runner(name: String, strategy: Strategy, requests: Array[Request]) -
 	ui.move_child(result_display, len(runners) - 1)
 
 
+## Starts all runners
 func start_runners() -> void:
 	for runner in runners:
 		runner.handle_request()

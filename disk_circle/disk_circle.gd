@@ -48,3 +48,7 @@ func update_image() -> void:
 	
 	var shader: ShaderMaterial = material
 	shader.set_shader_parameter("values", ImageTexture.create_from_image(image))
+
+
+func update_speed(speed: float) -> void:
+	(material as ShaderMaterial).set_shader_parameter("speed", speed / 200.0)

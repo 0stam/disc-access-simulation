@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name Strategy
 
 ## Returns an index of the selected request

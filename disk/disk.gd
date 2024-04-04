@@ -6,7 +6,12 @@ signal move_finished
 var pointer_destination: int
 var pointer_pos: float
 
-@export var pointer_speed: float = 200
+@export var pointer_speed: float = 200:
+	set(val):
+		pointer_speed = val
+		
+		if disk_circle != null:
+			disk_circle.update_speed(pointer_speed)
 
 @onready var disk_circle: DiskCircle = $DiskCircle
 @onready var pointer: TextureRect = $Pointer
@@ -47,6 +52,7 @@ func set_requests(requests: Array[Request], current_request: int) -> void:
 	
 	disk_circle.processing_list = request_positions
 	disk_circle.current_request = current_request
+	disk_circle.update_speed(pointer_speed)
 
 
 func _process(delta: float) -> void:
