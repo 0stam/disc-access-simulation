@@ -6,6 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4oh0v"]
 shader = ExtResource("1_g7jkg")
+shader_parameter/speed = 2.0
 shader_parameter/values = ExtResource("2_huscc")
 
 [node name="DiskCircle" type="ColorRect"]
